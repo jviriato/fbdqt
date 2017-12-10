@@ -1,5 +1,7 @@
 import pymysql
 
+from PyQt5 import QtCore, QtGui
+
 
 class Database(object):
 
@@ -8,7 +10,9 @@ class Database(object):
                                   user=db_user,
                                   password=db_pass,
                                   db=db_name,
-                                  cursorclass=pymysql.cursors.DictCursor)
+                                  cursorclass=pymysql.cursors.DictCursor,
+                                  autocommit=True)
+        self.cur = self.db.cursor()
 
 
     def __enter__(self):
@@ -19,18 +23,36 @@ class Database(object):
     #         self.db.close()
 
 
+
     def selectAllfromTable(self, tabelaNome):
         query = "SELECT * FROM " + tabelaNome
-        self.cur = self.db.cursor()
 
         self.cur.execute(query)
-        for row in self.cur.fetchall():
-            print (row)
 
-    def populaTabela(self, tabelaNome):
-        query = "SELECT DISTINCT (id%s) FROM " % tabelaNome
-        query += tabelaNome
-        print(query)
-        self.cur = self.db.cursor()
-        row_count = self.cur.execute(query)
-        print (row_count)
+        # for row in self.cur:
+        #     print (row)
+
+        return list(self.cur)
+
+    def returnNumRows(self, tabelaNome):
+        query = "SELECT * FROM " + tabelaNome
+
+        self.cur.execute(query)
+        num_rows = self.cur.fetchall()
+        return len(num_rows)
+
+    def returncountId(self, tabelaNome):
+        query = "SELECT COUNT(*) FROM " + tabelaNome
+        self.cur.execute(query)
+        total_id = self.cur.fetchall()
+        for i, entry in enumerate(total_id):
+            return (entry['COUNT(*)'])
+
+        db.commit()
+
+    # def returnNumColumns(self, tabelaNome):
+    #     # query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'mydb' AND table_name = '%s';" % tabelaNome
+    #     query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'mydb' AND table_name = 'Curso';"
+    #     print(query)
+    #     res = self.cur.execute(query)
+    #     print(res)

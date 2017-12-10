@@ -15,47 +15,12 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0">
      <widget class="QLabel" name="labelDiariodeClasse">
       <property name="text">
        <string>Diário de Classe</string>
       </property>
      </widget>
-    </item>
-    <item row="2" column="0">
-     <layout class="QVBoxLayout" name="nomeCurso">
-      <item>
-       <widget class="QLabel" name="labelNomeCurso">
-        <property name="text">
-         <string>Nome do Curso</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="linenomeCurso"/>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="1" rowspan="2">
-     <widget class="QPushButton" name="btnInserir">
-      <property name="text">
-       <string>Inserir</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <layout class="QVBoxLayout" name="siglaCurso">
-      <item>
-       <widget class="QLabel" name="labelsiglaCurso">
-        <property name="text">
-         <string>Sigla do Curso</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineSiglaCurso"/>
-      </item>
-     </layout>
     </item>
     <item row="1" column="0" colspan="2">
      <widget class="QTableWidget" name="tableCurso">
@@ -82,15 +47,54 @@
       </column>
      </widget>
     </item>
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="nomeCurso">
+      <item>
+       <widget class="QLabel" name="labelNomeCurso">
+        <property name="text">
+         <string>Nome do Curso</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="linenomeCurso"/>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="btnInserir">
+      <property name="text">
+       <string>Inserir</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="btnExcluir">
+      <property name="text">
+       <string>Excluir</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <layout class="QVBoxLayout" name="siglaCurso">
+      <item>
+       <widget class="QLabel" name="labelsiglaCurso">
+        <property name="text">
+         <string>Sigla do Curso</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineSiglaCurso"/>
+      </item>
+     </layout>
+    </item>
    </layout>
    <zorder>tableCurso</zorder>
    <zorder>labelDiariodeClasse</zorder>
-   <zorder>linenomeCurso</zorder>
-   <zorder>lineSiglaCurso</zorder>
-   <zorder>labelNomeCurso</zorder>
-   <zorder>labelsiglaCurso</zorder>
-   <zorder>labelNomeCurso</zorder>
    <zorder>btnInserir</zorder>
+   <zorder>btnExcluir</zorder>
+   <zorder>splitter</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
