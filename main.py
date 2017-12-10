@@ -58,8 +58,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 query = "INSERT INTO %s VALUES ('%s', '%s', '%s')" % (
                 table_name, db.returncountId("Curso") + 1, nomeCurso, siglaCurso)
                 print(query)
+                db.cur.execute(query)
                 db.db.commit()
-        db.db.commit()
+                # db.commit_isso(query);
+
 
 
 

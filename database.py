@@ -48,7 +48,9 @@ class Database(object):
         for i, entry in enumerate(total_id):
             return (entry['COUNT(*)'])
 
-        db.commit()
+
+    def commit_isso(self, query):
+        self.db.commit()
 
     # def returnNumColumns(self, tabelaNome):
     #     # query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'mydb' AND table_name = '%s';" % tabelaNome
