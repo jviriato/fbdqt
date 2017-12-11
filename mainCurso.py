@@ -29,10 +29,14 @@ class Curso(QMainWindow, Ui_curso):
     def check_if_exists_in_db(self, result, siglaCurso, nomeCurso):
         for i, entry in enumerate(result):
             if siglaCurso == entry['siglaCurso']:
-                print("Essa sigla já existe!")
+                erro = QMessageBox()
+                erro.setText("Essa sigla já existe!")
+                erro.exec()
                 return 1
             elif nomeCurso == entry['nomeCurso']:
-                print("Esse curso já existe!")
+                erro = QMessageBox()
+                erro.setText("Esse Curso já existe!")
+                erro.exec()
                 return 1
         return 0
 
