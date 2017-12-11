@@ -31,7 +31,7 @@ class Professor(QMainWindow, Ui_Form):
     def check_if_exists_in_db(self, result, matricula, nomeProfessor):
         for i, entry in enumerate(result):
             if matricula == entry['matricula']:
-                print("Essa sigla já existe!")
+                print("Essa matrícula já existe!")
                 return 1
             elif nomeProfessor == entry['nomeProfessor']:
                 print("Esse professor já existe!")
@@ -47,7 +47,6 @@ class Professor(QMainWindow, Ui_Form):
 
         if(nomeProfessor != '' and matricula != ''):
             num_rows = db.returnNumRows(table_name)
-            self.tableProfessor.setRowCount(num_rows + 1)
 
             if self.check_if_exists_in_db(result, matricula, nomeProfessor) == 0:
                 query = "INSERT INTO %s VALUES (NULL, '%s', '%s')" % (

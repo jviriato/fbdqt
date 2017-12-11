@@ -44,7 +44,6 @@ class Curso(QMainWindow, Ui_curso):
 
         if(nomeCurso != '' and siglaCurso != ''):
             num_rows = db.returnNumRows(table_name)
-            self.tableCurso.setRowCount(num_rows + 1)
 
             if self.check_if_exists_in_db(result, siglaCurso, nomeCurso) == 0:
                 query = "INSERT INTO %s VALUES (NULL, '%s', '%s')" % (
