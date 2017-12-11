@@ -14,23 +14,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Cursos(db, "Curso"));
-
+        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Cursos(db, "Curso"));
+        # self.tableCurso.cellClicked.connect(self.cell_was_clicked)
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableCurso.setRowCount(num_rows)
-        query = "SELECT * FROM " + table_name
+        query = "SELECT idCurso, nomeCurso, siglaCurso FROM " + table_name
         db.cur.execute(query)
         result = db.cur.fetchall()
+        print(result)
 
-        for num, valores in enumerate(result):
-            # print(num,valores["siglaCurso"])
-            col = 0
-            for col_number, data in valores.items():
-                print(data, "col:", col)
-                self.tableCurso.setItem(num, col, QTableWidgetItem(str(data)))
-                col = col + 1
-                if col == num_rows:
-                    col = 0
+        for i, row in enumerate(result):
+            idCurso = row["idCurso"]
+            nomeCurso = row["nomeCurso"]
+            siglaCurso = row["siglaCurso"]
+            self.tableCurso.setItem(i, 0, QTableWidgetItem(str(idCurso)))
+            self.tableCurso.setItem(i, 1, QTableWidgetItem(str(nomeCurso)))
+            self.tableCurso.setItem(i, 2, QTableWidgetItem(str(siglaCurso)))
+
+        # for num, valores in enumerate(result):
+        #     # print(num,valores["siglaCurso"])
+        #     col = 0
+        #     for col_number, data in valores.items():
+        #         print(data)
+        #         self.tableCurso.setItem(num, col, QTableWidgetItem(str(data)))
+        #         col = col + 1
+        #         if col == num_rows:
+        #             col = 0
 
 
     def check_if_exists_in_db(self, result, siglaCurso, nomeCurso):
@@ -60,18 +70,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print(query)
                 db.cur.execute(query)
                 db.db.commit()
-                # db.commit_isso(query);
+                self.popularTabela(db, "Curso")
+
+    def remover_item_Tabela_Cursos(self, db, table_name):
+        index = self.tableCurso.currentIndex()
+        row = index.row()
+        column = index.column()
+        # print(row, column)
+
+        #column 2 = id
+        item = self.tableCurso.item(row,0)
+
+        id = int(item.text())
+
+        query = "DELETE FROM %s WHERE idCurso = %d" % (table_name, id)
+        db.cur.execute(query)
+        db.db.commit()
+        self.popularTabela(db, "Curso")
 
 
 
-
-
-                # query = "SELECT EXISTS(SELECT * FROM %s WHERE siglaCurso = '%s' AND nomeCurso = '%s')" % (table_name, siglaCurso, nomeCurso)
-            # db.cur.execute(query)
-            # check_if_exists = db.cur.fetchall()
-            # print(check_if_exists)
-
-
+        # def cell_was_clicked(self, row, column):
+        # print("clique", row, column)
+        # return row
 
 def main():
 
