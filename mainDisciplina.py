@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import *
-from view.Disciplina import Ui_Disciplina
+from view.disciplina import Ui_disciplina
+
 from main import *
-class Disciplina(QMainWindow, Ui_Disciplina):
+class Disciplina(QMainWindow, Ui_disciplina):
     def __init__(self):
         super(Disciplina, self).__init__()
         self.setupUi(self)

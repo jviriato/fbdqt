@@ -17,6 +17,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.btnCursos.clicked.connect(lambda: self.clicou_em_Cursos())
         self.btnProfessores.clicked.connect(lambda: self.clicou_em_Professores())
+        self.btnDisciplinas.clicked.connect(lambda: self.clicou_em_Disciplinas())
 
     def clicou_em_Cursos(self):
          window_curso = Curso()
