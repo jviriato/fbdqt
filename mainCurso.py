@@ -8,7 +8,8 @@ class Curso(QMainWindow, Ui_curso):
         header = self.tableCurso.setColumnWidth(1, 300)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Cursos(db, "Curso"));
         self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Cursos(db, "Curso"));
-        # self.tableCurso.cellClicked.connect(self.cell_was_clicked)
+        self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Cursos(db, "Curso"));
+
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableCurso.setRowCount(num_rows)
@@ -68,3 +69,19 @@ class Curso(QMainWindow, Ui_curso):
         db.cur.execute(query)
         db.db.commit()
         self.popularTabela(db, "Curso")
+
+    def editar_item_Tabela_Cursos(self, db, table_name):
+        index = self.tableCurso.currentIndex()
+        row = index.row()
+        column = index.column()
+
+        idCurso = int(self.tableCurso.item(row,0).text())
+        nomeCurso = str(self.tableCurso.item(row,1).text())
+        siglaCurso = str(self.tableCurso.item(row,2).text())
+
+        query = "UPDATE %s SET nomeCurso = '%s', siglaCurso = '%s ' WHERE idCurso = %d" % (table_name, nomeCurso, siglaCurso, idCurso)
+        db.cur.execute(query)
+        db.db.commit()
+        self.popularTabela(db, "Curso")
+
+
