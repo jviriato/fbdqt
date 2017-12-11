@@ -25,6 +25,13 @@ class Disciplina(QMainWindow, Ui_disciplina):
             self.tableDisciplina.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
             self.tableDisciplina.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
 
+    def check_if_exists_in_another_table(self, idDisciplina):
+        #tabelas que existe Disc: Curso_has_Disciplina
+        print("idDisciplina:",idDisciplina)
+        query = "SELECT Disciplina_idDisciplina FROM Curso_has_Disciplina WHERE Disciplina_idDisciplina = %s" % idDisciplina
+        return db.cur.execute(query)
+
+
     def check_if_exists_in_db(self, result, nomeDisciplina):
         for i, entry in enumerate(result):
             if nomeDisciplina == entry['nomeDisciplina']:
@@ -59,11 +66,17 @@ class Disciplina(QMainWindow, Ui_disciplina):
         item = self.tableDisciplina.item(row,0)
 
         id = int(item.text())
+        if self.check_if_exists_in_another_table(id) == 0:
+            query = "DELETE FROM %s WHERE idDisciplina = %d" % (table_name, id)
+            db.cur.execute(query)
+            db.db.commit()
+            self.popularTabela(db, "Disciplina")
+        else:
+            erro = QMessageBox()
+            erro.setText("Disciplina presente na tabela Curso_has_Disciplina!")
+            erro.exec()
 
-        query = "DELETE FROM %s WHERE idDisciplina = %d" % (table_name, id)
-        db.cur.execute(query)
-        db.db.commit()
-        self.popularTabela(db, "Disciplina")
+
 
     def editar_item_Tabela_Disciplinas(self, db, table_name):
         index = self.tableDisciplina.currentIndex()
