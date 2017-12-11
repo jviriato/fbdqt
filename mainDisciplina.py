@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
-from view.disciplina import Ui_disciplina
+from view.Disciplina import Ui_Disciplina
 from main import *
-class Disciplina(QMainWindow, Ui_disciplina):
+class Disciplina(QMainWindow, Ui_Disciplina):
     def __init__(self):
         super(Disciplina, self).__init__()
         self.setupUi(self)
@@ -13,7 +13,7 @@ class Disciplina(QMainWindow, Ui_disciplina):
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableDisciplina.setRowCount(num_rows)
-        query = "SELECT idDisciplina, nomeDisciplina, FROM " + table_name
+        query = "SELECT idDisciplina, nomeDisciplina FROM " + table_name
         db.cur.execute(query)
         result = db.cur.fetchall()
         print(result)
@@ -21,14 +21,16 @@ class Disciplina(QMainWindow, Ui_disciplina):
         for i, row in enumerate(result):
             idDisciplina = row["idDisciplina"]
             nomeDisciplina = row["nomeDisciplina"]
-            self.tableCurso.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
-            self.tableCurso.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
+            self.tableDisciplina.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
+            self.tableDisciplina.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
 
-    def check_if_exists_in_db(self, result, siglaCurso, nomeCurso):
+    def check_if_exists_in_db(self, result, siglaDisciplina, nomeDisciplina):
         for i, entry in enumerate(result):
- 		ifnomeDisciplina == entry['nomeDisciplina']:
-                	print("Essa Disciplina j· existe!")
-                	return 1
+            if nomeDisciplina == entry['nomeDisciplina']:
+                erro = QMessageBox()
+                erro.setText("Essa Disciplina j√° existe!")
+                erro.exec()
+                return 1
         return 0
 
     def adicionar_item_Tabela_Disciplinas(self, db, table_name):
@@ -77,7 +79,7 @@ class Disciplina(QMainWindow, Ui_disciplina):
         db.db.commit()
         self.popularTabela(db, "Disciplina")
 
-    def buscar_item_Tabela_Disciplina(self, db, table_name):
+    def buscar_item_Tabela_Disciplinas(self, db, table_name):
         text = self.lineBusca.text()
         query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%' OR {4} LIKE '{2}%'".format(table_name, "idDisciplina", text, "nomeDisciplina")
         num_rows = db.cur.execute(query)
@@ -87,5 +89,5 @@ class Disciplina(QMainWindow, Ui_disciplina):
         for i, row in enumerate(result):
             idDisciplina = row["idDisciplina"]
             nomeDisciplina = row["nomeDisciplina"]
-            self.tableCurso.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
-            self.tableCurso.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
+            self.tableDisciplina.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
+            self.tableDisciplina.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
