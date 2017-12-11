@@ -25,7 +25,7 @@ class Disciplina(QMainWindow, Ui_disciplina):
             self.tableDisciplina.setItem(i, 0, QTableWidgetItem(str(idDisciplina)))
             self.tableDisciplina.setItem(i, 1, QTableWidgetItem(str(nomeDisciplina)))
 
-    def check_if_exists_in_db(self, result, siglaDisciplina, nomeDisciplina):
+    def check_if_exists_in_db(self, result, nomeDisciplina):
         for i, entry in enumerate(result):
             if nomeDisciplina == entry['nomeDisciplina']:
                 erro = QMessageBox()
@@ -39,13 +39,11 @@ class Disciplina(QMainWindow, Ui_disciplina):
         db.cur.execute(query)
         result = db.cur.fetchall()
         nomeDisciplina  = self.linenomeDisciplina.text()
-
         if(nomeDisciplina != ''):
             num_rows = db.returnNumRows(table_name)
 
             if self.check_if_exists_in_db(result, nomeDisciplina) == 0:
-                query = "INSERT INTO %s VALUES (NULL, '%s')" % (
-                table_name, nomeDisciplina)
+                query = "INSERT INTO %s VALUES (NULL, '%s')" % (table_name, nomeDisciplina)
                 print(query)
                 db.cur.execute(query)
                 db.db.commit()
