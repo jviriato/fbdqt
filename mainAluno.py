@@ -12,8 +12,7 @@ class Aluno(QMainWindow, Ui_Form):
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Aluno(db, "Aluno"));
         self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Aluno(db, "Aluno"));
         self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Aluno(db, "Aluno"));
-
-        # self.tableAluno.cellClicked.connect(self.cell_was_clicked)
+        self.lineBusca.textChanged.connect(lambda: self.buscar_item_Tabela_Alunos(db, "Aluno"))
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableAluno.setRowCount(num_rows)
@@ -30,13 +29,24 @@ class Aluno(QMainWindow, Ui_Form):
             self.tableAluno.setItem(i, 1, QTableWidgetItem(str(nomeAluno)))
             self.tableAluno.setItem(i, 2, QTableWidgetItem(str(matricula)))
 
+    def check_if_exists_in_another_table(self, idAluno):
+        #tabelas que existe Aluno: Turma
+        print("IdAluno:",idAluno)
+        query = "SELECT Aluno_idAluno FROM Turma WHERE Aluno_idAluno = %s" % idAluno
+        return db.cur.execute(query)
+
+
     def check_if_exists_in_db(self, result, matricula, nomeAluno):
         for i, entry in enumerate(result):
-            if matricula == entry['matricula']:
-                print("Essa matrÌcula j· existe!")
+            if matricula == int(entry['matricula']):
+                erro = QMessageBox()
+                erro.setText("Essa matr√≠cula j√° existe!")
+                erro.exec()
                 return 1
             elif nomeAluno == entry['nomeAluno']:
-                print("Esse Aluno j· existe!")
+                erro = QMessageBox()
+                erro.setText("Esse Aluno j√° existe!")
+                erro.exec()
                 return 1
         return 0
 
@@ -45,7 +55,7 @@ class Aluno(QMainWindow, Ui_Form):
         db.cur.execute(query)
         result = db.cur.fetchall()
         nomeAluno  = self.linenomeAluno.text()
-        matricula = self.lineMatricula.text()
+        matricula = int(self.lineMatricula.text())
 
         if(nomeAluno != '' and matricula != ''):
             num_rows = db.returnNumRows(table_name)
@@ -69,10 +79,15 @@ class Aluno(QMainWindow, Ui_Form):
 
         id = int(item.text())
 
-        query = "DELETE FROM %s WHERE idAluno = %d" % (table_name, id)
-        db.cur.execute(query)
-        db.db.commit()
-        self.popularTabela(db, "Aluno")
+        if self.check_if_exists_in_another_table(id) == 0:
+            query = "DELETE FROM %s WHERE idAluno = %d" % (table_name, id)
+            db.cur.execute(query)
+            db.db.commit()
+            self.popularTabela(db, "Aluno")
+        else:
+            erro = QMessageBox()
+            erro.setText("Aluno presente na tabela Turma!")
+            erro.exec()
 
 
     def editar_item_Tabela_Aluno(self, db, table_name):
@@ -88,3 +103,18 @@ class Aluno(QMainWindow, Ui_Form):
         db.cur.execute(query)
         db.db.commit()
         self.popularTabela(db, "Aluno")
+
+    def buscar_item_Tabela_Alunos(self, db, table_name):
+        text = self.lineBusca.text()
+        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%' OR {4} LIKE '{2}%'".format(table_name, "idAluno", text, "nomeAluno", "matricula")
+        num_rows = db.cur.execute(query)
+        result = db.cur.fetchall()
+
+        self.tableAluno.setRowCount(num_rows)
+        for i, row in enumerate(result):
+            idAluno = row["idAluno"]
+            nomeAluno = row["nomeAluno"]
+            matricula = row["matricula"]
+            self.tableAluno.setItem(i, 0, QTableWidgetItem(str(idAluno)))
+            self.tableAluno.setItem(i, 1, QTableWidgetItem(str(nomeAluno)))
+            self.tableAluno.setItem(i, 2, QTableWidgetItem(str(matricula)))
