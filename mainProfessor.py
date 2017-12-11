@@ -12,8 +12,7 @@ class Professor(QMainWindow, Ui_Form):
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Professor(db, "Professor"));
         self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Professor(db, "Professor"));
         self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Professor(db, "Professor"));
-
-        # self.tableProfessor.cellClicked.connect(self.cell_was_clicked)
+        self.lineBusca.textChanged.connect(lambda: self.buscar_item_Tabela_Professors(db, "Professor"))
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableProfessor.setRowCount(num_rows)
@@ -32,7 +31,7 @@ class Professor(QMainWindow, Ui_Form):
 
     def check_if_exists_in_db(self, result, matricula, nomeProfessor):
         for i, entry in enumerate(result):
-            if matricula == entry['matricula']:
+            if matricula == int(entry['matricula']):
                 print("Essa matrícula já existe!")
                 return 1
             elif nomeProfessor == entry['nomeProfessor']:
@@ -45,7 +44,7 @@ class Professor(QMainWindow, Ui_Form):
         db.cur.execute(query)
         result = db.cur.fetchall()
         nomeProfessor  = self.linenomeProfessor.text()
-        matricula = self.lineMatricula.text()
+        matricula = int(self.lineMatricula.text())
 
         if(nomeProfessor != '' and matricula != ''):
             num_rows = db.returnNumRows(table_name)
@@ -88,3 +87,19 @@ class Professor(QMainWindow, Ui_Form):
         db.cur.execute(query)
         db.db.commit()
         self.popularTabela(db, "Professor")
+
+    def buscar_item_Tabela_Professors(self, db, table_name):
+        text = self.lineBusca.text()
+        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%' OR {4} LIKE '{2}%'".format(table_name, "idProfessor", text, "nomeProfessor", "matricula")
+        num_rows = db.cur.execute(query)
+        result = db.cur.fetchall()
+
+        self.tableProfessor.setRowCount(num_rows)
+        for i, row in enumerate(result):
+            idProfessor = row["idProfessor"]
+            nomeProfessor = row["nomeProfessor"]
+            matricula = row["matricula"]
+            self.tableProfessor.setItem(i, 0, QTableWidgetItem(str(idProfessor)))
+            self.tableProfessor.setItem(i, 1, QTableWidgetItem(str(nomeProfessor)))
+            self.tableProfessor.setItem(i, 2, QTableWidgetItem(str(matricula)))
+
