@@ -8,7 +8,7 @@ from mainProfessor import *
 from view.main import Ui_MainWindow
 
 db = Database("127.0.0.1", "viriato", "dinossauro", "mydb")
-
+#teste
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
