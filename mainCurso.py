@@ -6,10 +6,10 @@ class Curso(QMainWindow, Ui_curso):
         super(Curso, self).__init__()
         self.setupUi(self)
         header = self.tableCurso.setColumnWidth(1, 300)
-        self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Cursos(db, "Curso"));
-        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Cursos(db, "Curso"));
-        self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Cursos(db, "Curso"));
-
+        self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Cursos(db, "Curso"))
+        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Cursos(db, "Curso"))
+        self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Cursos(db, "Curso"))
+        self.lineBusca.textChanged.connect(lambda: self.buscar_item_Tabela_Cursos(db, "Curso"))
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
         self.tableCurso.setRowCount(num_rows)
@@ -84,4 +84,17 @@ class Curso(QMainWindow, Ui_curso):
         db.db.commit()
         self.popularTabela(db, "Curso")
 
+    def buscar_item_Tabela_Cursos(self, db, table_name):
+        text = self.lineBusca.text()
+        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%' OR {4} LIKE '{2}%'".format(table_name, "idCurso", text, "nomeCurso", "siglaCurso")
+        num_rows = db.cur.execute(query)
+        result = db.cur.fetchall()
 
+        self.tableCurso.setRowCount(num_rows)
+        for i, row in enumerate(result):
+            idCurso = row["idCurso"]
+            nomeCurso = row["nomeCurso"]
+            siglaCurso = row["siglaCurso"]
+            self.tableCurso.setItem(i, 0, QTableWidgetItem(str(idCurso)))
+            self.tableCurso.setItem(i, 1, QTableWidgetItem(str(nomeCurso)))
+            self.tableCurso.setItem(i, 2, QTableWidgetItem(str(siglaCurso)))
