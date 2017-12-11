@@ -47,8 +47,8 @@ class Curso(QMainWindow, Ui_curso):
             self.tableCurso.setRowCount(num_rows + 1)
 
             if self.check_if_exists_in_db(result, siglaCurso, nomeCurso) == 0:
-                query = "INSERT INTO %s VALUES ('%s', '%s', '%s')" % (
-                table_name, db.returncountId("Curso") + 1, nomeCurso, siglaCurso)
+                query = "INSERT INTO %s VALUES (NULL, '%s', '%s')" % (
+                table_name, nomeCurso, siglaCurso)
                 print(query)
                 db.cur.execute(query)
                 db.db.commit()
@@ -60,7 +60,7 @@ class Curso(QMainWindow, Ui_curso):
         column = index.column()
         # print(row, column)
 
-        #column 2 = id
+        #column 0 = id
         item = self.tableCurso.item(row,0)
 
         id = int(item.text())
