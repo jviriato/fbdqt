@@ -82,7 +82,7 @@ class Disciplina(QMainWindow, Ui_disciplina):
 
     def buscar_item_Tabela_Disciplinas(self, db, table_name):
         text = self.lineBusca.text()
-        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%'".format(table_name, "idDisciplina", text, "nomedsiciplina")
+        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%'".format(table_name, "idDisciplina", text, "nomeDisciplina")
         num_rows = db.cur.execute(query)
         result = db.cur.fetchall()
 
