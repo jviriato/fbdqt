@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'aluno.ui'
+#
+# Created by: PyQt5 UI code generator 5.5.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Aluno(object):
+    def setupUi(self, Aluno):
+        Aluno.setObjectName("Aluno")
+        Aluno.resize(679, 585)
+        self.tableAluno = QtWidgets.QTableWidget(Aluno)
+        self.tableAluno.setGeometry(QtCore.QRect(40, 20, 601, 331))
+        self.tableAluno.setRowCount(3)
+        self.tableAluno.setObjectName("tableAluno")
+        self.tableAluno.setColumnCount(3)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableAluno.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableAluno.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableAluno.setHorizontalHeaderItem(2, item)
+        self.tableAluno.horizontalHeader().setStretchLastSection(True)
+        self.frame = QtWidgets.QFrame(Aluno)
+        self.frame.setGeometry(QtCore.QRect(80, 440, 491, 111))
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(20, 10, 91, 17))
+        self.label.setObjectName("label")
+        self.layoutWidget = QtWidgets.QWidget(self.frame)
+        self.layoutWidget.setGeometry(QtCore.QRect(20, 40, 304, 61))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.labelNomeAluno = QtWidgets.QLabel(self.layoutWidget)
+        self.labelNomeAluno.setObjectName("labelNomeAluno")
+        self.verticalLayout.addWidget(self.labelNomeAluno)
+        self.linenomeAluno = QtWidgets.QLineEdit(self.layoutWidget)
+        self.linenomeAluno.setObjectName("linenomeAluno")
+        self.verticalLayout.addWidget(self.linenomeAluno)
+        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.labelMatricula = QtWidgets.QLabel(self.layoutWidget)
+        self.labelMatricula.setObjectName("labelMatricula")
+        self.verticalLayout_2.addWidget(self.labelMatricula)
+        self.lineMatricula = QtWidgets.QLineEdit(self.layoutWidget)
+        self.lineMatricula.setObjectName("lineMatricula")
+        self.verticalLayout_2.addWidget(self.lineMatricula)
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
+        self.layoutWidget_2 = QtWidgets.QWidget(self.frame)
+        self.layoutWidget_2.setGeometry(QtCore.QRect(330, 10, 151, 92))
+        self.layoutWidget_2.setObjectName("layoutWidget_2")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.layoutWidget_2)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.btnInserir = QtWidgets.QPushButton(self.layoutWidget_2)
+        self.btnInserir.setObjectName("btnInserir")
+        self.verticalLayout_4.addWidget(self.btnInserir)
+        self.btnEditar = QtWidgets.QPushButton(self.layoutWidget_2)
+        self.btnEditar.setObjectName("btnEditar")
+        self.verticalLayout_4.addWidget(self.btnEditar)
+        self.btnExcluir = QtWidgets.QPushButton(self.layoutWidget_2)
+        self.btnExcluir.setObjectName("btnExcluir")
+        self.verticalLayout_4.addWidget(self.btnExcluir)
+        self.layoutWidget_3 = QtWidgets.QWidget(Aluno)
+        self.layoutWidget_3.setGeometry(QtCore.QRect(80, 370, 481, 41))
+        self.layoutWidget_3.setObjectName("layoutWidget_3")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.layoutWidget_3)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.labelBusca = QtWidgets.QLabel(self.layoutWidget_3)
+        self.labelBusca.setObjectName("labelBusca")
+        self.horizontalLayout_2.addWidget(self.labelBusca)
+        self.lineBusca = QtWidgets.QLineEdit(self.layoutWidget_3)
+        self.lineBusca.setObjectName("lineBusca")
+        self.horizontalLayout_2.addWidget(self.lineBusca)
+
+        self.retranslateUi(Aluno)
+        QtCore.QMetaObject.connectSlotsByName(Aluno)
+
+    def retranslateUi(self, Aluno):
+        _translate = QtCore.QCoreApplication.translate
+        Aluno.setWindowTitle(_translate("Aluno", "Form"))
+        item = self.tableAluno.horizontalHeaderItem(0)
+        item.setText(_translate("Aluno", "idAluno"))
+        item = self.tableAluno.horizontalHeaderItem(1)
+        item.setText(_translate("Aluno", "nomeAluno"))
+        item = self.tableAluno.horizontalHeaderItem(2)
+        item.setText(_translate("Aluno", "matricula"))
+        self.label.setText(_translate("Aluno", "Manipulação"))
+        self.labelNomeAluno.setText(_translate("Aluno", "Nome do Professor"))
+        self.labelMatricula.setText(_translate("Aluno", "Matrícula"))
+        self.btnInserir.setText(_translate("Aluno", "Inserir"))
+        self.btnEditar.setText(_translate("Aluno", "Editar"))
+        self.btnExcluir.setText(_translate("Aluno", "Excluir"))
+        self.labelBusca.setText(_translate("Aluno", "Buscar"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Aluno = QtWidgets.QWidget()
+    ui = Ui_Aluno()
+    ui.setupUi(Aluno)
+    Aluno.show()
+    sys.exit(app.exec_())
+
