@@ -10,7 +10,9 @@ class Professor(QMainWindow, Ui_Form):
         self.setupUi(self)
         header = self.tableProfessor.setColumnWidth(1, 300)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Professor(db, "Professor"));
-        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Professors(db, "Professor"));
+        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Professor(db, "Professor"));
+        self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Professor(db, "Professor"));
+
         # self.tableProfessor.cellClicked.connect(self.cell_was_clicked)
     def popularTabela(self, db, table_name):
         num_rows = db.returnNumRows(table_name)
@@ -56,7 +58,7 @@ class Professor(QMainWindow, Ui_Form):
                 db.db.commit()
                 self.popularTabela(db, "Professor")
 
-    def remover_item_Tabela_Professors(self, db, table_name):
+    def remover_item_Tabela_Professor(self, db, table_name):
         index = self.tableProfessor.currentIndex()
         row = index.row()
         column = index.column()
@@ -68,6 +70,21 @@ class Professor(QMainWindow, Ui_Form):
         id = int(item.text())
 
         query = "DELETE FROM %s WHERE idProfessor = %d" % (table_name, id)
+        db.cur.execute(query)
+        db.db.commit()
+        self.popularTabela(db, "Professor")
+
+
+    def editar_item_Tabela_Professor(self, db, table_name):
+        index = self.tableProfessor.currentIndex()
+        row = index.row()
+        column = index.column()
+
+        idProfessor = int(self.tableProfessor.item(row,0).text())
+        nomeProfessor = str(self.tableProfessor.item(row,1).text())
+        matricula = str(self.tableProfessor.item(row,2).text())
+
+        query = "UPDATE %s SET nomeProfessor = '%s', matricula = '%s ' WHERE idProfessor = %d" % (table_name, nomeProfessor, matricula, idProfessor)
         db.cur.execute(query)
         db.db.commit()
         self.popularTabela(db, "Professor")
