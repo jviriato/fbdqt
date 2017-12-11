@@ -4,6 +4,8 @@ import sys
 from database import Database
 from mainCurso import *
 from mainProfessor import *
+from mainDisciplina import *
+from mainAluno import *
 
 from view.main import Ui_MainWindow
 
@@ -25,7 +27,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
          window_professor = Professor()
          window_professor.show()
          window_professor.popularTabela(db, "Professor")
-
+            
+    def clicou_em_Disciplinas(self):
+         window_disciplina = Disciplina()
+         window_disciplina.show()
+         window_disciplina.popularTabela(db, "Disciplina")
+            
+    def clicou_em_Alunos(self):
+         window_aluno = Aluno()
+         window_aluno.show()
+         window_aluno.popularTabela(db, "Aluno")
 
 def main():
 
