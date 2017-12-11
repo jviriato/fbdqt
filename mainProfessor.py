@@ -29,13 +29,24 @@ class Professor(QMainWindow, Ui_Form):
             self.tableProfessor.setItem(i, 1, QTableWidgetItem(str(nomeProfessor)))
             self.tableProfessor.setItem(i, 2, QTableWidgetItem(str(matricula)))
 
+    def check_if_exists_in_another_table(self, idProfessor):
+        #tabelas que existe professor: Turma
+        print("IdProfessor:",idProfessor)
+        query = "SELECT Professor_idProfessor FROM Turma WHERE Professor_idProfessor = %s" % idProfessor
+        return db.cur.execute(query)
+
+
     def check_if_exists_in_db(self, result, matricula, nomeProfessor):
         for i, entry in enumerate(result):
             if matricula == int(entry['matricula']):
-                print("Essa matrícula já existe!")
+                erro = QMessageBox()
+                erro.setText("Essa matrícula já existe!")
+                erro.exec()
                 return 1
             elif nomeProfessor == entry['nomeProfessor']:
-                print("Esse professor já existe!")
+                erro = QMessageBox()
+                erro.setText("Esse Professor já existe!")
+                erro.exec()
                 return 1
         return 0
 
@@ -68,10 +79,15 @@ class Professor(QMainWindow, Ui_Form):
 
         id = int(item.text())
 
-        query = "DELETE FROM %s WHERE idProfessor = %d" % (table_name, id)
-        db.cur.execute(query)
-        db.db.commit()
-        self.popularTabela(db, "Professor")
+        if self.check_if_exists_in_another_table(id) == 0:
+            query = "DELETE FROM %s WHERE idProfessor = %d" % (table_name, id)
+            db.cur.execute(query)
+            db.db.commit()
+            self.popularTabela(db, "Professor")
+        else:
+            erro = QMessageBox()
+            erro.setText("Professor presente na tabela Turma!")
+            erro.exec()
 
 
     def editar_item_Tabela_Professor(self, db, table_name):
