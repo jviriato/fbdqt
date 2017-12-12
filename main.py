@@ -6,6 +6,7 @@ from mainCurso import *
 from mainProfessor import *
 from mainDisciplina import *
 from mainAluno import *
+from mainCurso_has_Disciplina import *
 
 from view.main import Ui_MainWindow
 
@@ -19,6 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnProfessores.clicked.connect(lambda: self.clicou_em_Professores())
         self.btnDisciplinas.clicked.connect(lambda: self.clicou_em_Disciplinas())
         self.btnAlunos.clicked.connect(lambda: self.clicou_em_Alunos())
+        self.btnCurso_has_Disciplinas.clicked.connect(lambda: self.clicou_em_Curso_has_Disciplinas())
 
     def clicou_em_Cursos(self):
          window_curso = Curso()
@@ -34,7 +36,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
          window_disciplina = Disciplina()
          window_disciplina.show()
          window_disciplina.popularTabela(db, "Disciplina")
-            
+
+    def clicou_em_Curso_has_Disciplinas(self):
+         window_disciplina = Curso_has_Disciplina()
+         window_disciplina.show()
+         window_disciplina.popularTabela(db, "curso_e_disc")
+
     def clicou_em_Alunos(self):
          window_aluno = Aluno()
          window_aluno.show()

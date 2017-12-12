@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>curso_has_disciplina</class>
+ <widget class="QWidget" name="curso_has_disciplina">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -148,7 +148,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QTableWidget" name="tableCurso_has_Disciplinas">
+  <widget class="QTableWidget" name="tableCurso_has_Disciplina">
    <property name="geometry">
     <rect>
      <x>60</x>
