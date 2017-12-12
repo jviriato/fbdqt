@@ -54,7 +54,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def clicou_em_Turmas(self):
          window_aluno = Turma()
          window_aluno.show()
-         window_aluno.popularTabela(db, "Turma")
+         window_aluno.popularTabela(db, "vw_Turma")
 
 def main():
 

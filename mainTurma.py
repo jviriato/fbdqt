@@ -27,15 +27,19 @@ class Turma(QMainWindow, Ui_Turma):
             idTurma = row["idTurma"]
             nomeTurma = row["nomeTurma"]
             turno = row["turno"]
-            idProfessor = row["Professor_idProfessor"]
-            idDisciplina = row["Disciplina_idDisciplina"]
-            Data = row["Data"]
+            ano = row["YEAR(t.data)"]
+            nomeDisciplina = row["nomeDisciplina"]
+            idDisciplina = row["idDisciplina"]
+            nomeProfessor = row["nomeProfessor"]
+            idProfessor = row["idProfessor"]
             self.tableTurma.setItem(i, 0, QTableWidgetItem(str(idTurma)))
             self.tableTurma.setItem(i, 1, QTableWidgetItem(str(nomeTurma)))
             self.tableTurma.setItem(i, 2, QTableWidgetItem(str(turno)))
-            self.tableTurma.setItem(i, 3, QTableWidgetItem(str(idProfessor)))
-            self.tableTurma.setItem(i, 4, QTableWidgetItem(str(idDisciplina)))
-            self.tableTurma.setItem(i, 5, QTableWidgetItem(str(Data)))
+            self.tableTurma.setItem(i, 3, QTableWidgetItem(str(idDisciplina)))
+            self.tableTurma.setItem(i, 4, QTableWidgetItem(str(nomeDisciplina)))
+            self.tableTurma.setItem(i, 5, QTableWidgetItem(str(idProfessor)))
+            self.tableTurma.setItem(i, 6, QTableWidgetItem(str(nomeProfessor)))
+            self.tableTurma.setItem(i, 7, QTableWidgetItem(str(ano)))
 
 
     def check_if_exists_in_db(self, result, nomeTurma, turno):
