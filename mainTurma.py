@@ -91,3 +91,29 @@ class Turma(QMainWindow, Ui_Turma):
         db.cur.execute(query)
         db.db.commit()
         self.popularTabela(db, "vw_Turma")
+
+    def buscar_item_Tabela_Turma(self, db, table_name):
+        text = self.lineBusca.text()
+
+        query = "SELECT * FROM {0} WHERE {1} LIKE '{2}%' OR {3} LIKE '{2}%' OR {4} LIKE '{2}%' OR {5} LIKE '{2}%' OR {6} LIKE '{2}%' OR {7} LIKE '{2}%' OR {8} LIKE '{2}%'".format("vw_Turma", "idTurma", text, "nomeTurma", "turno", "nomeDisciplina", "idDisciplina", "nomeProfessor", "idProfessor")
+        num_rows = db.cur.execute(query)
+        result = db.cur.fetchall()
+
+        self.tableTurma.setRowCount(num_rows)
+        for i, row in enumerate(result):
+            idTurma = row["idTurma"]
+            nomeTurma = row["nomeTurma"]
+            turno = row["turno"]
+            ano = row["YEAR(t.data)"]
+            nomeDisciplina = row["nomeDisciplina"]
+            idDisciplina = row["idDisciplina"]
+            nomeProfessor = row["nomeProfessor"]
+            idProfessor = row["idProfessor"]
+            self.tableTurma.setItem(i, 0, QTableWidgetItem(str(idTurma)))
+            self.tableTurma.setItem(i, 1, QTableWidgetItem(str(nomeTurma)))
+            self.tableTurma.setItem(i, 2, QTableWidgetItem(str(turno)))
+            self.tableTurma.setItem(i, 3, QTableWidgetItem(str(idDisciplina)))
+            self.tableTurma.setItem(i, 4, QTableWidgetItem(str(nomeDisciplina)))
+            self.tableTurma.setItem(i, 5, QTableWidgetItem(str(idProfessor)))
+            self.tableTurma.setItem(i, 6, QTableWidgetItem(str(nomeProfessor)))
+            self.tableTurma.setItem(i, 7, QTableWidgetItem(str(ano)))
