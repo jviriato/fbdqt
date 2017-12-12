@@ -78,7 +78,6 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
                     #add idDisciplina, idCurso no Curso_has_Disciplina
                     for i, data in enumerate(result):
                         idDisciplina = data["idDisciplina"]
-                    print(idCurso, "Oiiwjd")
                     query = "INSERT INTO Curso_has_Disciplina VALUES('{0}', '{1}')".format(idCurso, idDisciplina)
                     db.cur.execute(query)
                     db.db.commit()
@@ -109,20 +108,33 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
             erro.setText("Curso_has_Disciplina presente na tabela Curso_has_Disciplina!")
             erro.exec()
 
-
-
     def editar_item_Tabela_Curso_has_Disciplinas(self, db, table_name):
         index = self.tableCurso_has_Disciplina.currentIndex()
         row = index.row()
         column = index.column()
 
-        Curso_idCurso = int(self.tableCurso_has_Disciplina.item(row,0).text())
-        Disciplina_idDisciplina = str(self.tableCurso_has_Disciplina.item(row,1).text())
+        nomeCurso = str(self.tableCurso_has_Disciplina.item(row,0).text())
+        nomeDisciplina = str(self.tableCurso_has_Disciplina.item(row,1).text())
 
-        query = "UPDATE %s SET Disciplina_idDisciplina = '%s' WHERE Curso_idCurso = %d" % (table_name, Disciplina_idDisciplina, Curso_idCurso)
+        #verificar se o curso existe
+        query = "SELECT idCurso FROM Curso WHERE nomeCurso = '{0}'".format(nomeCurso)
         db.cur.execute(query)
-        db.db.commit()
-        self.popularTabela(db, "curso_e_disc")
+        resultado = db.cur.fetchall()
+        print(resultado)
+        if resultado == 0:
+            #curso não existe, entao simplesmente dá update no nome do curso
+
+            for key, value in resultado .items():
+                print(key, value)
+
+            query = "UPDATE Curso SET nomeCurso = '{0}' WHERE idCurso = '{1}".format(nomeCurso, idCurso)
+        else:
+            print("Oi")
+            #curso existe
+
+
+        # query = "UPDATE %s SET Disciplina_idDisciplina = '%s' WHERE Curso_idCurso = %d" % (table_name, Disciplina_idDisciplina, Curso_idCurso)
+        # self.popularTabela(db, "curso_e_disc")
 
     def buscar_item_Tabela_Curso_has_Disciplinas(self, db, table_name):
         text = self.lineBusca.text()

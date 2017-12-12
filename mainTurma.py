@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from view.turma import Ui_Turma
 
 from main import *
-db = Database("localhost", "root", "30101998", "mydb")
+db = Database("localhost", "viriato", "dinossauro", "mydb")
 
 class Turma(QMainWindow, Ui_Turma):
     def __init__(self):
