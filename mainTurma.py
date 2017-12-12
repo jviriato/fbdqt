@@ -49,7 +49,6 @@ class Turma(QMainWindow, Ui_Turma):
 
         return 0
 
-
     def adicionar_item_Tabela_Turma(self, db, table_name):
         query = "SELECT * FROM " + table_name
         db.cur.execute(query)
