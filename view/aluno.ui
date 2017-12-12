@@ -90,7 +90,7 @@
        <item>
         <widget class="QLabel" name="labelNomeAluno">
          <property name="text">
-          <string>Nome do Professor</string>
+          <string>Nome do Aluno</string>
          </property>
         </widget>
        </item>

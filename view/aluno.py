@@ -94,7 +94,7 @@ class Ui_Aluno(object):
         item = self.tableAluno.horizontalHeaderItem(2)
         item.setText(_translate("Aluno", "matricula"))
         self.label.setText(_translate("Aluno", "Manipulação"))
-        self.labelNomeAluno.setText(_translate("Aluno", "Nome do Professor"))
+        self.labelNomeAluno.setText(_translate("Aluno", "Nome do Aluno"))
         self.labelMatricula.setText(_translate("Aluno", "Matrícula"))
         self.btnInserir.setText(_translate("Aluno", "Inserir"))
         self.btnEditar.setText(_translate("Aluno", "Editar"))
