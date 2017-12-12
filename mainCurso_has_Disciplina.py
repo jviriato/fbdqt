@@ -7,6 +7,7 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
         super(Curso_has_Disciplina, self).__init__()
         self.setupUi(self)
         header = self.tableCurso_has_Disciplina.setColumnWidth(1, 300)
+        header = self.tableCurso_has_Disciplina.setColumnWidth(3, 300)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
         self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
         self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
@@ -21,10 +22,14 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
         print(result)
 
         for i, row in enumerate(result):
-            Curso_idCurso = row["nomeCurso"]
-            Disciplina_idDisciplina = row["nomeDisciplina"]
-            self.tableCurso_has_Disciplina.setItem(i, 0, QTableWidgetItem(str(Curso_idCurso)))
-            self.tableCurso_has_Disciplina.setItem(i, 1, QTableWidgetItem(str(Disciplina_idDisciplina)))
+            idCurso = row["idCurso"]
+            idDisciplina = row["idDisciplina"]
+            nomeDisciplina = row["nomeDisciplina"]
+            nomeCurso = row["nomeCurso"]
+            self.tableCurso_has_Disciplina.setItem(i, 0, QTableWidgetItem(str(idCurso)))
+            self.tableCurso_has_Disciplina.setItem(i, 1, QTableWidgetItem(str(nomeCurso)))
+            self.tableCurso_has_Disciplina.setItem(i, 2, QTableWidgetItem(str(idDisciplina)))
+            self.tableCurso_has_Disciplina.setItem(i, 3, QTableWidgetItem(str(nomeDisciplina)))
 
     def check_if_exists_in_db(self, result, nomeDisciplina, nomeCurso):
         for i, entry in enumerate(result):
@@ -124,7 +129,7 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
         if resultado == 0:
             #curso não existe, entao simplesmente dá update no nome do curso
 
-            for key, value in resultado .items():
+            for key, value in resultado.items():
                 print(key, value)
 
             query = "UPDATE Curso SET nomeCurso = '{0}' WHERE idCurso = '{1}".format(nomeCurso, idCurso)

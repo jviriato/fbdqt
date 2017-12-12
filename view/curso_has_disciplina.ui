@@ -159,7 +159,17 @@
    </property>
    <column>
     <property name="text">
+     <string>idCurso</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
      <string>nomeCurso</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>idDisciplina</string>
     </property>
    </column>
    <column>
