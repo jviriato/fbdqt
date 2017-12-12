@@ -6,8 +6,10 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
     def __init__(self):
         super(Curso_has_Disciplina, self).__init__()
         self.setupUi(self)
-        header = self.tableCurso_has_Disciplina.setColumnWidth(1, 300)
+        header = self.tableCurso_has_Disciplina.setColumnWidth(1, 200)
         header = self.tableCurso_has_Disciplina.setColumnWidth(3, 300)
+        header = self.tableCurso_has_Disciplina.setColumnWidth(0, 50)
+        header = self.tableCurso_has_Disciplina.setColumnWidth(2, 50)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
         self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
         self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Curso_has_Disciplinas(db, "Curso_has_Disciplina"))
@@ -100,46 +102,67 @@ class Curso_has_Disciplina(QMainWindow, Ui_curso_has_disciplina):
         # print(row, column)
 
         #column 0 = id
-        item = self.tableCurso_has_Disciplina.item(row,0)
+        item = self.tableCurso_has_Disciplina.item(row,2)
+        idDisciplina = int(item.text())
 
-        id = int(item.text())
-        if self.check_if_exists_in_another_table(id) == 0:
-            query = "DELETE FROM %s WHERE Curso_idCurso = %d" % (table_name, id)
-            db.cur.execute(query)
-            db.db.commit()
-            self.popularTabela(db, "curso_e_disc")
-        else:
-            erro = QMessageBox()
-            erro.setText("Curso_has_Disciplina presente na tabela Curso_has_Disciplina!")
-            erro.exec()
+        item = self.tableCurso_has_Disciplina.item(row, 0)
+        idCurso = int(item.text())
+#       remover disciplina do Curso
+        query = "DELETE FROM Curso_has_Disciplina WHERE Disciplina_idDisciplina = {0} AND Curso_idCurso = {1}".format(idDisciplina, idCurso)
+        print(query)
+        db.cur.execute(query)
+        db.db.commit()
+        self.popularTabela(db, "curso_e_disc")
+
+        # if self.check_if_exists_in_another_table(id) == 0:
+        #     query = "DELETE FROM %s WHERE Curso_idCurso = %d" % (table_name, id)
+        #     db.cur.execute(query)
+        #     db.db.commit()
+        #     self.popularTabela(db, "curso_e_disc")
+        # else:
+        #     erro = QMessageBox()
+        #     erro.setText("Curso_has_Disciplina presente na tabela Curso_has_Disciplina!")
+        #     erro.exec()
+
 
     def editar_item_Tabela_Curso_has_Disciplinas(self, db, table_name):
         index = self.tableCurso_has_Disciplina.currentIndex()
         row = index.row()
         column = index.column()
 
-        nomeCurso = str(self.tableCurso_has_Disciplina.item(row,0).text())
-        nomeDisciplina = str(self.tableCurso_has_Disciplina.item(row,1).text())
+        idCurso = int(self.tableCurso_has_Disciplina.item(row,0).text())
+        nomeCurso = str(self.tableCurso_has_Disciplina.item(row,1).text())
+        idDisciplina = int(self.tableCurso_has_Disciplina.item(row,2).text())
+        nomeDisciplina = str(self.tableCurso_has_Disciplina.item(row,3).text())
 
-        #verificar se o curso existe
-        query = "SELECT idCurso FROM Curso WHERE nomeCurso = '{0}'".format(nomeCurso)
-        db.cur.execute(query)
-        resultado = db.cur.fetchall()
-        print(resultado)
-        if resultado == 0:
-            #curso não existe, entao simplesmente dá update no nome do curso
-
-            for key, value in resultado.items():
-                print(key, value)
-
-            query = "UPDATE Curso SET nomeCurso = '{0}' WHERE idCurso = '{1}".format(nomeCurso, idCurso)
+        query = "SELECT nomeCurso, idCurso FROM Curso WHERE nomeCurso = '{0}'".format(nomeCurso)
+        result = db.cur.execute(query);
+        if result == 0:
+            #curso não existe, só dar update
+            query = "UPDATE Curso SET nomeCurso = '{0}' WHERE idCurso = '{1}'".format(nomeCurso, idCurso)
+            db.cur.execute(query)
+            db.db.commit()
         else:
-            print("Oi")
-            #curso existe
+            #curso existe, mudar ids
+            valor = db.cur.fetchall()
+            for i, row in enumerate(valor):
+                idCursoNEW = row["idCurso"]
+
+            query = "UPDATE Curso SET idCurso = '{0}' WHERE idCurso = '{1}'".format(idCursoNEW, idCurso)
+            db.cur.execute(query)
+            db.db.commit()
 
 
-        # query = "UPDATE %s SET Disciplina_idDisciplina = '%s' WHERE Curso_idCurso = %d" % (table_name, Disciplina_idDisciplina, Curso_idCurso)
-        # self.popularTabela(db, "curso_e_disc")
+        # query = "SELECT nomeDisciplina FROM Disciplina WHERE nomeDisciplina = '{0}'".format(nomeDisciplina)
+        # result = db.cur.execute(query)
+        # if result == 0:
+        #     #disciplina não existe
+        #     #cria disciplina
+        # else:
+        #     #disciplina existe
+
+
+        self.popularTabela(db, "curso_e_disc")
 
     def buscar_item_Tabela_Curso_has_Disciplinas(self, db, table_name):
         text = self.lineBusca.text()
