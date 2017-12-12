@@ -46,9 +46,6 @@ def main():
     window_main = MainWindow()
     window_main.show()
 
-    # window_curso = Curso()
-    # window_curso.show()
-    # window_curso.popularTabela(db, "Curso")
     sys.exit(app.exec_())
 
 

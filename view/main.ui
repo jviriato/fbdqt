@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>266</width>
-    <height>290</height>
+    <width>464</width>
+    <height>243</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>60</x>
       <y>50</y>
-      <width>160</width>
-      <height>156</height>
+      <width>164</width>
+      <height>141</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -52,10 +52,43 @@
        </property>
       </widget>
      </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>49</y>
+      <width>164</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="btnCurso_has_Disciplinas">
+       <property name="text">
+        <string>Disciplinas em Cursos</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="btnDisciplinas">
        <property name="text">
         <string>Disciplinas</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnTurma_has_Aluno">
+       <property name="text">
+        <string>Alunos em Turmas</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnFrequencia">
+       <property name="text">
+        <string>Frequências</string>
        </property>
       </widget>
      </item>

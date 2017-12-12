@@ -18,25 +18,19 @@ class Database(object):
     def __enter__(self):
         return self
 
-    # def __exit__(self, exc_type, exc_val, exc_tb):
-    #     if self.db:
-    #         self.db.close()
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.db:
+            self.db.close()
 
 
 
     def selectAllfromTable(self, tabelaNome):
         query = "SELECT * FROM " + tabelaNome
-
         self.cur.execute(query)
-
-        # for row in self.cur:
-        #     print (row)
-
         return list(self.cur)
 
     def returnNumRows(self, tabelaNome):
         query = "SELECT * FROM " + tabelaNome
-
         self.cur.execute(query)
         num_rows = self.cur.fetchall()
         return len(num_rows)
@@ -47,11 +41,3 @@ class Database(object):
         total_id = self.cur.fetchall()
         for i, entry in enumerate(total_id):
             return (entry['COUNT(*)'])
-
-
-    # def returnNumColumns(self, tabelaNome):
-    #     # query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'mydb' AND table_name = '%s';" % tabelaNome
-    #     query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'mydb' AND table_name = 'Curso';"
-    #     print(query)
-    #     res = self.cur.execute(query)
-    #     print(res)
