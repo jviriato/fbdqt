@@ -32,13 +32,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnTurmas">
-       <property name="text">
-        <string>Turmas</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnAlunos">
        <property name="text">
         <string>Alunos</string>
@@ -49,6 +42,13 @@
       <widget class="QPushButton" name="btnProfessores">
        <property name="text">
         <string>Professores</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnTurmas">
+       <property name="text">
+        <string>Turmas</string>
        </property>
       </widget>
      </item>
