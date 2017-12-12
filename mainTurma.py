@@ -8,9 +8,11 @@ class Turma(QMainWindow, Ui_Turma):
     def __init__(self):
         super(Turma, self).__init__()
         self.setupUi(self)
-        header = self.tableTurma.setColumnWidth(1, 300)
+        header = self.tableTurma.setColumnWidth(0, 40)
+        header = self.tableTurma.setColumnWidth(1, 80)
+        header = self.tableTurma.setColumnWidth(4, 300)
         self.btnInserir.clicked.connect(lambda: self.adicionar_item_Tabela_Turma(db, "Turma"));
-        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Turmar(db, "Turma"));
+        self.btnExcluir.clicked.connect(lambda: self.remover_item_Tabela_Turma(db, "Turma"));
         self.btnEditar.clicked.connect(lambda: self.editar_item_Tabela_Turma(db, "Turma"));
         self.lineBusca.textChanged.connect(lambda: self.buscar_item_Tabela_Turma(db, "Turma"))
 
@@ -117,3 +119,18 @@ class Turma(QMainWindow, Ui_Turma):
             self.tableTurma.setItem(i, 5, QTableWidgetItem(str(idProfessor)))
             self.tableTurma.setItem(i, 6, QTableWidgetItem(str(nomeProfessor)))
             self.tableTurma.setItem(i, 7, QTableWidgetItem(str(ano)))
+
+    def remover_item_Tabela_Turma(self,db, tableName):
+        index = self.tableTurma.currentIndex()
+        row = index.row()
+        column = index.column()
+
+        item = self.tableTurma.item(row, 0)
+        idTurma = int(item.text())
+
+        #       remover disciplina do Curso
+        query = "DELETE FROM {0} WHERE idTurma = {1}".format(tableName, idTurma)
+        print(query)
+        db.cur.execute(query)
+        db.db.commit()
+        self.popularTabela(db, "Turma")
