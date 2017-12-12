@@ -65,16 +65,16 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="btnCurso_has_Disciplinas">
+      <widget class="QPushButton" name="btnDisciplinas">
        <property name="text">
-        <string>Disciplinas em Cursos</string>
+        <string>Disciplinas</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnDisciplinas">
+      <widget class="QPushButton" name="btnCurso_has_Disciplinas">
        <property name="text">
-        <string>Disciplinas</string>
+        <string>Disciplinas em Cursos</string>
        </property>
       </widget>
      </item>

@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'curso_has_disciplina.ui'
+#
+# Created by: PyQt5 UI code generator 5.5.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(640, 651)
+        self.layoutWidget = QtWidgets.QWidget(Form)
+        self.layoutWidget.setGeometry(QtCore.QRect(80, 370, 481, 41))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.labelBusca = QtWidgets.QLabel(self.layoutWidget)
+        self.labelBusca.setObjectName("labelBusca")
+        self.horizontalLayout_2.addWidget(self.labelBusca)
+        self.lineBusca = QtWidgets.QLineEdit(self.layoutWidget)
+        self.lineBusca.setObjectName("lineBusca")
+        self.horizontalLayout_2.addWidget(self.lineBusca)
+        self.frame = QtWidgets.QFrame(Form)
+        self.frame.setGeometry(QtCore.QRect(80, 440, 491, 191))
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(20, 10, 91, 17))
+        self.label.setObjectName("label")
+        self.layoutWidget_2 = QtWidgets.QWidget(self.frame)
+        self.layoutWidget_2.setGeometry(QtCore.QRect(20, 40, 304, 61))
+        self.layoutWidget_2.setObjectName("layoutWidget_2")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget_2)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.labelNomeDisciplina = QtWidgets.QLabel(self.layoutWidget_2)
+        self.labelNomeDisciplina.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.labelNomeDisciplina.setObjectName("labelNomeDisciplina")
+        self.verticalLayout.addWidget(self.labelNomeDisciplina)
+        self.linenomeDisciplina = QtWidgets.QLineEdit(self.layoutWidget_2)
+        self.linenomeDisciplina.setObjectName("linenomeDisciplina")
+        self.verticalLayout.addWidget(self.linenomeDisciplina)
+        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.layoutWidget_3 = QtWidgets.QWidget(self.frame)
+        self.layoutWidget_3.setGeometry(QtCore.QRect(330, 40, 151, 131))
+        self.layoutWidget_3.setObjectName("layoutWidget_3")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.layoutWidget_3)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.btnInserir = QtWidgets.QPushButton(self.layoutWidget_3)
+        self.btnInserir.setObjectName("btnInserir")
+        self.verticalLayout_4.addWidget(self.btnInserir)
+        self.btnEditar = QtWidgets.QPushButton(self.layoutWidget_3)
+        self.btnEditar.setObjectName("btnEditar")
+        self.verticalLayout_4.addWidget(self.btnEditar)
+        self.btnExcluir = QtWidgets.QPushButton(self.layoutWidget_3)
+        self.btnExcluir.setObjectName("btnExcluir")
+        self.verticalLayout_4.addWidget(self.btnExcluir)
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.frame)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 110, 301, 61))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.labelNomeCurso = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.labelNomeCurso.setObjectName("labelNomeCurso")
+        self.verticalLayout_2.addWidget(self.labelNomeCurso)
+        self.lineNomeCurso = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineNomeCurso.setObjectName("lineNomeCurso")
+        self.verticalLayout_2.addWidget(self.lineNomeCurso)
+        self.tableCurso_has_Disciplinas = QtWidgets.QTableWidget(Form)
+        self.tableCurso_has_Disciplinas.setGeometry(QtCore.QRect(60, 40, 521, 281))
+        self.tableCurso_has_Disciplinas.setObjectName("tableCurso_has_Disciplinas")
+        self.tableCurso_has_Disciplinas.setColumnCount(2)
+        self.tableCurso_has_Disciplinas.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableCurso_has_Disciplinas.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableCurso_has_Disciplinas.setHorizontalHeaderItem(1, item)
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.labelBusca.setText(_translate("Form", "Buscar"))
+        self.label.setText(_translate("Form", "Manipulação"))
+        self.labelNomeDisciplina.setText(_translate("Form", "Nome da Disciplina"))
+        self.btnInserir.setText(_translate("Form", "Inserir"))
+        self.btnEditar.setText(_translate("Form", "Editar"))
+        self.btnExcluir.setText(_translate("Form", "Excluir"))
+        self.labelNomeCurso.setText(_translate("Form", "Nome do Curso"))
+        item = self.tableCurso_has_Disciplinas.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "nomeCurso"))
+        item = self.tableCurso_has_Disciplinas.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "nomeDisciplina"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+
