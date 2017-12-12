@@ -45,7 +45,7 @@ class Turma(QMainWindow, Ui_Turma):
     def check_if_exists_in_db(self, result, nomeTurma, turno):
         for i, entry in enumerate(result):
             if nomeTurma == entry['nomeTurma']:
-                if turno == entru['turno']:
+                if turno == entry['turno']:
                     erro = QMessageBox()
                     erro.setText("Essa Turma já existe!")
                     erro.exec()
@@ -72,7 +72,7 @@ class Turma(QMainWindow, Ui_Turma):
                 print(query)
                 db.cur.execute(query)
                 db.db.commit()
-                self.popularTabela(db, "Turma")
+                self.popularTabela(db, "vw_Turma")
 
 
     def editar_item_Tabela_Turma(self, db, table_name):
@@ -90,4 +90,4 @@ class Turma(QMainWindow, Ui_Turma):
         query = "UPDATE %s SET nomeTurma = '%s', turno = '%s ' WHERE idTurma = %d" % (table_name, nomeTurma, turno, idTurma)
         db.cur.execute(query)
         db.db.commit()
-        self.popularTabela(db, "Turma")
+        self.popularTabela(db, "vw_Turma")
